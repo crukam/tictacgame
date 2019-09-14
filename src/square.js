@@ -1,10 +1,11 @@
 import React from 'react';
-
+//import Grid from './board.js';
 
  class Square extends React.Component{
+	 
 	 render(){
 		 return(
-	              <button className= "square">{this.props.value}</button>
+	              <button className= "square" onClick={()=>this.props.onClick()}>{this.props.value}</button>
 	          );
 	 }
  }
