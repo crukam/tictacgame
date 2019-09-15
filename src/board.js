@@ -4,40 +4,35 @@ import Square from './square.js';
 class Grid extends React.Component{
 	constructor (props){
 		super(props);
-		this.state={square_values:Array(9).fill(null),};
-		this.handleclick=this.handleclick.bind(this);
+		this.state={square_values:Array(9).fill(null),  x_index:true,};
+		
 	}
 	handleclick(i){
 		let square_values=this.state.square_values.slice();
-		square_values[i]='X';
-		this.setState({square_values:square_values});
+		square_values[i]= this.state.x_index?'X':'O';
+		this.setState({square_values:square_values, x_index:!this.state.x_index});
 	
 	}
-	renderSquare(i)
-	{
-		return <Square value={this.state.square_values[i]} onClick={()=>this.handleclick(i)}/>
-	}
+	
+	createGrid=()=>{
+		let Grid =[];
+	    for(let j=0;j<3;j++){
+		 	let row=[];
+		    for(let i=0;i<3;i++){ 
+			    let k= 3*j+i;
+			    row.push(<Square value={this.state.square_values[k]} onClick={()=>this.handleclick(k)}/>);
+			    }
+		    Grid.push(<div className="gamerow">{row}</div>);
+		}
+		return(Grid);
+    }
 	render(){
 		return(
-		<div>
-		    <div className="gamerow">
-		        {this.renderSquare(1)}
-			    {this.renderSquare(2)}
-			    {this.renderSquare(3)}
-				
-		    </div>
-		    <div className="gamerow">
-		        {this.renderSquare(4)}
-		        {this.renderSquare(5)}
-			   {this.renderSquare(6)}
-		    </div>
-		   <div className="gamerow">
-	     	    {this.renderSquare(7)}
-	    		{this.renderSquare(8)}
-		    	{this.renderSquare(9)}
+		     <div>
+		       {this.createGrid()}
 			</div>
-		</div>
 		);
+		
 	}
 }
 export default Grid;
